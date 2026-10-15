@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const dummyUrls = [
@@ -30,6 +31,13 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [currentValue, setCurrentValue] = useState(null);
 
+  async function fetchUrls() {
+    const response = await axios.get("/api/url");
+
+    console.log(response);
+  }
+
+  fetchUrls();
   return (
     <main className="p-10 flex flex-col gap-4">
       <div className="width-full max-w-4xl p-2"></div>
@@ -41,7 +49,6 @@ function App() {
               <p>{url.shortCode}</p>
               <p className="truncate">{url.originalUrl}</p>
 
-
               <div className="flex gap-2">
                 <button className="p-2 rounded bg-orange-600 text-white cursor-pointer">
                   Copy
@@ -51,13 +58,8 @@ function App() {
                 </button>
               </div>
             </div>
-
-
           );
         })}
-
-
-
       </div>
     </main>
   );

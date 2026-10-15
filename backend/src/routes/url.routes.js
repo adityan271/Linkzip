@@ -4,6 +4,7 @@ import urlModel from "../models/url.model.js";
 
 const router = express.Router();
 
+//post api 
 router.post("/", async function (req, res) {
   const { url } = req.body;
 
@@ -42,6 +43,8 @@ router.post("/", async function (req, res) {
   });
 });
 
+
+//get API which fetch all data
 router.get("/", async function (req, res) {
   const urls = await urlModel.find();
 
