@@ -82,11 +82,41 @@ function App() {
           Shorten
         </button>
       </div>
-      <div className="width-full max-w-4xl p-2"></div>
+      <div className="w-full max-w-4xl p-4 border rounded-lg">
+        {currentValue && (
+          <div className="flex flex-col gap-2">
+            <p className="font-semibold text-green-600">
+              Your shortened URL is ready!
+            </p>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={`http://localhost:3000/${currentValue.shortCode}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline break-all"
+              >
+                {`http://localhost:3000/${currentValue.shortCode}`}
+              </a>
+
+              <button
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    `http://localhost:3000/${currentValue.shortCode}`,
+                  )
+                }
+                className="rounded p-2 bg-orange-600 text-white cursor-pointer"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="width-full max-w-4xl p-2 flex flex-col gap-2">
         {urls.map((url) => {
           return (
-            <div className="border border-neutral-200 p-2 gap-4 flex justify-evenly">
+            <div className="border border-neutral-200 p-2 gap-4 flex justify-between">
               <a
                 href={`http://localhost:3000/${url.shortCode}`}
                 target="_blank"
