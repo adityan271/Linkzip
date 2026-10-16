@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
 
@@ -34,10 +34,17 @@ function App() {
   async function fetchUrls() {
     const response = await axios.get("/api/url");
 
-    console.log(response);
+    const responseData = response.data;
+
+    console.log(responseData.data.urls);
+
+    setUrls(responseData.data.urls);
   }
 
-  fetchUrls();
+  useEffect(() => {
+    fetchUrls();
+  }, []);
+
   return (
     <main className="p-10 flex flex-col gap-4">
       <div className="width-full max-w-4xl p-2"></div>
@@ -46,7 +53,12 @@ function App() {
         {urls.map((url) => {
           return (
             <div className="border border-neutral-200 p-2 gap-4 flex justify-evenly">
-              <p>{url.shortCode}</p>
+              <a
+                href={`http://localhost:3000/${url.shortCode}`}
+                target="_blank"
+              >
+                {url.shortCode}
+              </a>
               <p className="truncate">{url.originalUrl}</p>
 
               <div className="flex gap-2">
